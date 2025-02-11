@@ -1,0 +1,24 @@
+{
+  "name": "sequelize-poc",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint \"**/*.js\"",
+    "test": "npm run test:coverage && npm run lint",
+    "test:coverage": "nyc --reporter=lcov mocha && nyc report",
+    "test:dev": "mocha ./test --watch"
+  },
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint": "^8.23.1",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0"
+  }
+}
