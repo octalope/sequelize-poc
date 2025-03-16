@@ -1,13 +1,20 @@
 # sequelize-poc
 
-![master](https://github.com/octalope/node-starter/actions/workflows/node.js.yml/badge.svg)
+Start the databases.
 
-Tiny Node.js module starter project.
+```bash
+npm run database:up
+```
+
+Stop the databases.
+
+```bash
+npm run database:down
+```
 
 Run all tests, coverage, and lint.
 
 ```bash
-npm install
 npm test
 ```
 
