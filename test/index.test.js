@@ -1,39 +1,7 @@
 import { expect } from 'chai';
 
-import { DataTypes, Model } from 'sequelize';
 import { Storage } from '../lib/index.js';
-
-const userModelFactory = (sequelize) => {
-  class User extends Model {}
-
-  User.init(
-    {
-      // Model attributes are defined here
-      userId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-      },
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        // allowNull defaults to true
-      },
-    },
-    {
-      indexes: [{ fields: ['lastName', 'firstName'] }],
-      sequelize: sequelize,
-      modelName: 'User',
-      // schema: 'SequelizePOC',
-      freezeTableName: true,
-    }
-  );
-
-  return User;
-};
+import userModelFactory from '../lib/models/user.js';
 
 describe('#index', () => {
   let User;
@@ -51,9 +19,6 @@ describe('#index', () => {
       connection: 'mssql://newuser:Lochness1!@localhost:1433/test',
     },
   ].forEach((testCase) => {
-    afterEach(async () => {
-    });
-
     it(`creates a model, creates and reads a user using ${testCase.adapter}`, async () => {
       User = await Storage({
         adapter: testCase.adapter,
