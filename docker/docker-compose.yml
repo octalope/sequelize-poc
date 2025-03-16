@@ -1,0 +1,60 @@
+services:
+  mysql:
+    container_name: mysql
+    platform: linux/amd64
+    image: 'mysql:latest'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=Lochness1!
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=Lochness1!
+      - MYSQL_DATABASE=test
+    healthcheck:
+      test:
+        - CMD
+        - mysql
+        - --wait
+        - --user=root
+        - --password=Lochness1!
+      interval: 10s
+      timeout: 60s
+      retries: 10
+
+  sqlserver:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Lochness1!
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
+    restart: always
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P Lochness1! -C -Q 'SELECT 1' || exit 1"
+      start_period: 10s
+      interval: 10s
+      timeout: 60s
+      retries: 100
+
+  sqlserver.configurator:
+    container_name: mysql-init
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    volumes:
+      - type: bind
+        source: ./init
+        target: /docker-entrypoint-initdb.d
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    command: >
+      bash -c '
+      /opt/mssql-tools18/bin/sqlcmd -S sqlserver -U SA -P Lochness1! -C -d master -i docker-entrypoint-initdb.d/init.sql;
+      echo "All done!";
+      '
