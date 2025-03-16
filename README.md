@@ -11,13 +11,20 @@ npm install
 npm test
 ```
 
-Run Mocha with `--watch` during development.
+Run Mocha without coverage.
 
 ```bash
 npm run test:dev
+
 ```
 
-Run eslint.
+Run Mocha with watch during development.
+
+```bash
+npm run test:dev:watch
+```
+
+Run EsLint.
 
 ```bash
 npm run lint
