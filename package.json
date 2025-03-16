@@ -1,7 +1,7 @@
 {
   "name": "sequelize-poc",
   "version": "1.0.0",
-  "description": "",
+  "description": "Exampe of using Sequelize with MySQL, SQLite, and SQL Server",
   "type": "module",
   "scripts": {
     "database:up": "docker compose -f docker/docker-compose.yml up -d",
@@ -12,10 +12,10 @@
     "test:dev": "mocha --config=.mocharc.yaml",
     "test:dev:watch": "nodemon  --exec npx mocha --config=.mocharc.yaml || true"
   },
-  "author": "",
+  "author": "Steve Brooks (steve.c.brooks@gmail.com)",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/octalope/sequelize-poc/"
   },
   "license": "MIT",
   "devDependencies": {
